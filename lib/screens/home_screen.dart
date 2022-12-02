@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/data/transaction_data.dart';
+import 'package:profile_ui/models/amount_model.dart';
 
 import 'package:profile_ui/widget/custom_label.dart';
 import 'package:profile_ui/widget/transaction_items.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: const Color(0xffe9f0fb),
       body: Column(
         children: [
           Padding(
@@ -23,14 +24,14 @@ class HomeScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(30),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 0,
                       blurRadius: 10,
-                      offset: const Offset(1, 2), // changes position of shadow
+                      offset: const Offset(0, 10), // changes position of shadow
                     ),
                   ]),
               child: Column(
@@ -71,9 +72,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Text(
                         persondata.name ?? '',
-                        style: TextStyle(
-                          color: Colors.lightBlue.shade900,
-                          fontSize: 20,
+                        style: const TextStyle(
+                          color: Color(0xff5B628F),
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -84,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                         persondata.position ?? '',
                         style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -96,19 +97,25 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const CustomLabel(value: "\$9800", label: "Income"),
+                        CustomLabel(
+                            value: "\$${TotalData().income.amount}",
+                            label: "${TotalData().income.label}"),
                         Container(
                           color: Colors.grey,
                           width: 0.5,
                           height: 50,
                         ),
-                        const CustomLabel(value: "\$5500", label: "Expenes"),
+                        CustomLabel(
+                            value: "\$${TotalData().expenes.amount}",
+                            label: "${TotalData().expenes.label}"),
                         Container(
                           color: Colors.grey,
                           width: 0.5,
                           height: 50,
                         ),
-                        const CustomLabel(value: "\$9800", label: "Loan"),
+                        CustomLabel(
+                            value: "\$${TotalData().loan.amount}",
+                            label: "${TotalData().loan.label}"),
                       ],
                     ),
                   )
@@ -123,11 +130,11 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Overview',
                       style: TextStyle(
-                        color: Colors.lightBlue.shade900,
-                        fontSize: 20,
+                        color: Color(0xff5B628F),
+                        fontSize: 23,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -137,10 +144,10 @@ class HomeScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Text(
+                const Text(
                   'Sept 13, 2020',
                   style: TextStyle(
-                    color: Colors.lightBlue.shade900,
+                    color: Color(0xff5B628F),
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -157,7 +164,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -177,13 +184,19 @@ class HomeScreen extends StatelessWidget {
                     height: 26,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    'assets/icons/add.svg',
-                    fit: BoxFit.cover,
-                    height: 30,
-                    color: Colors.lightBlue.shade900,
+                Container(
+                  height: 36,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff5B628F),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 IconButton(

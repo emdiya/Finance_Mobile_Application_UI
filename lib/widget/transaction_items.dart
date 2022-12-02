@@ -21,14 +21,14 @@ class TransactionItems extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(34),
+            borderRadius: BorderRadius.circular(28),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
+                color: const Color(0xffb4c5e5).withOpacity(0.1),
+                spreadRadius: 0.1,
                 blurRadius: 10,
-                offset: const Offset(1, 2), // changes position of shadow
+                offset: const Offset(0, 2), // changes position of shadow
               ),
             ],
           ),
@@ -39,17 +39,23 @@ class TransactionItems extends StatelessWidget {
               children: [
                 Container(
                   height: 50,
-                  width: 50,
+                  width: 51,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue.shade50,
-                  ),
+                      borderRadius: BorderRadius.circular(16),
+                      color: const Color(0xffe9f0fb),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 0,
+                            color: Colors.black.withOpacity(0.2),
+                            offset: const Offset(0, 0))
+                      ]),
                   alignment: Alignment.center,
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/icons/${transaction.logo}.svg',
                       fit: BoxFit.cover,
-                      height: 30,
+                      height: 20,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -61,16 +67,16 @@ class TransactionItems extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: '${transaction.title}\n',
-                        style: TextStyle(
-                            color: Colors.lightBlue.shade900,
+                        style: const TextStyle(
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                            fontSize: 15),
                       ),
                       TextSpan(
                         text: transaction.description,
                         style: const TextStyle(color: Colors.grey).copyWith(
                           height: 1.5,
-                          fontSize: 12,
+                          fontSize: 11,
                           shadows: [
                             const BoxShadow(
                               color: Colors.white,
@@ -89,15 +95,12 @@ class TransactionItems extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text:
-                            '\n${transaction.value!.isNegative ? '' : '+'}${transaction.value}\$ ',
-                        style: TextStyle(
+                        text: '\n\$${transaction.value} ',
+                        style: const TextStyle(
                           // color: Colors.red,
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
-                          color: transaction.value!.isNegative
-                              ? Colors.red
-                              : Colors.lightBlue.shade900,
+                          color: Colors.black,
                         ),
                       ),
                     ],

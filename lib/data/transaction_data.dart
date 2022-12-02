@@ -5,18 +5,18 @@ final transactionsData = [
     logo: 'up',
     title: 'Sent',
     description: 'Sending Payment to Clients',
-    value: -150,
+    value: 150,
   ),
   Transaction(
     logo: 'down',
     title: 'Receive',
     description: 'Receiving Salary from Company',
-    value: 2500.00,
+    value: 250,
   ),
   Transaction(
     logo: 'dollar',
     title: 'Loan',
-    description: 'Loan for Car',
+    description: 'Loan for the  Car',
     value: 400,
   ),
 ];

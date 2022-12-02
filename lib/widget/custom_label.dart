@@ -11,10 +11,10 @@ class CustomLabel extends StatelessWidget {
       children: [
         Text(
           value ?? "",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
-            color: Colors.lightBlue.shade900,
-            fontWeight: FontWeight.w700,
+            color: Color(0xff5b628f),
+            fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(
