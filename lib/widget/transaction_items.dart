@@ -68,9 +68,10 @@ class TransactionItems extends StatelessWidget {
                       TextSpan(
                         text: '${transaction.title}\n',
                         style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                       TextSpan(
                         text: transaction.description,
@@ -95,7 +96,7 @@ class TransactionItems extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '\n\$${transaction.value} ',
+                        text: '\n\$${transaction.value!.round()} ',
                         style: const TextStyle(
                           // color: Colors.red,
                           fontSize: 13,

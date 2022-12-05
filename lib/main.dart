@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:profile_ui/screens/home_screen.dart';
+import 'package:profile_ui/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        backgroundColor: const Color(0xffe9f0fb),
+      ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -15,6 +15,7 @@ class CustomLabel extends StatelessWidget {
             fontSize: 16,
             color: Color(0xff5B628F),
             fontWeight: FontWeight.w500,
+            fontFamily: 'Alata',
           ),
         ),
         const SizedBox(
@@ -23,7 +24,7 @@ class CustomLabel extends StatelessWidget {
         Text(
           label ?? "",
           style: const TextStyle(
-            fontSize: 12,
+            fontSize: 11,
             color: Colors.black,
           ),
         ),

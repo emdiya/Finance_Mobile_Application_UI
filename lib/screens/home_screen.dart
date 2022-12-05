@@ -4,15 +4,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/data/transaction_data.dart';
 import 'package:profile_ui/models/amount_model.dart';
+import 'package:profile_ui/screens/recent_transaction.dart';
+import 'package:profile_ui/screens/submit_screen.dart';
 
 import 'package:profile_ui/widget/custom_label.dart';
 import 'package:profile_ui/widget/transaction_items.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +73,12 @@ class HomeScreen extends StatelessWidget {
                           height: 100,
                           fit: BoxFit.cover,
                         ),
+                        // child: Image.asset(
+                        //   'assets/images/reaksmey.jpeg',
+                        //   height: 100,
+                        //   width: 100,
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                       const SizedBox(
                         height: 18,
@@ -76,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                           color: Color(0xff5B628F),
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Alata',
                         ),
                       ),
                       const SizedBox(
@@ -87,6 +101,7 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.black,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
+                          fontFamily: 'Alata',
                         ),
                       ),
                     ],
@@ -98,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomLabel(
-                            value: "\$${TotalData().income.amount}",
+                            value: "\$${TotalData().income.amount!.round()}",
                             label: "${TotalData().income.label}"),
                         Container(
                           color: Colors.grey,
@@ -106,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                           height: 50,
                         ),
                         CustomLabel(
-                            value: "\$${TotalData().expenes.amount}",
+                            value: "\$${TotalData().expenes.amount!.round()}",
                             label: "${TotalData().expenes.label}"),
                         Container(
                           color: Colors.grey,
@@ -114,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                           height: 50,
                         ),
                         CustomLabel(
-                            value: "\$${TotalData().loan.amount}",
+                            value: "\$${TotalData().loan.amount!.round()}",
                             label: "${TotalData().loan.label}"),
                       ],
                     ),
@@ -136,6 +151,7 @@ class HomeScreen extends StatelessWidget {
                         color: Color(0xff5B628F),
                         fontSize: 23,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Alata',
                       ),
                     ),
                     IconButton(
@@ -148,7 +164,8 @@ class HomeScreen extends StatelessWidget {
                   'Sept 13, 2020',
                   style: TextStyle(
                     color: Color(0xff5B628F),
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Alata',
                   ),
                 )
               ],
@@ -164,7 +181,8 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -177,7 +195,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return const RecentTransactions();
+                      }),
+                    );
+                  },
                   icon: SvgPicture.asset(
                     'assets/icons/card.svg',
                     fit: BoxFit.cover,
@@ -192,7 +216,14 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const SubmitScreen();
+                      })).then((value) {
+                        setState(() {});
+                      });
+                    },
                     icon: const Icon(
                       Icons.add,
                       color: Colors.white,
@@ -201,7 +232,32 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 400,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(36),
+                            color: Colors.white,
+                          ),
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: (() {
+                                  Navigator.pop(context);
+                                }),
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                   icon: SvgPicture.asset(
                     'assets/icons/dollar2.svg',
                     fit: BoxFit.cover,
