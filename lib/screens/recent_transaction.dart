@@ -11,6 +11,7 @@ class RecentTransactions extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        //leading: IconButton(onPressed: () {}, icon: const Icon(Icons.backpack)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),

@@ -1,6 +1,9 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/transaction_data.dart';
-import 'package:profile_ui/models/transaction_model.dart';
+
+import '../models/transaction_model.dart';
 
 class SubmitScreen extends StatefulWidget {
   const SubmitScreen({super.key});
@@ -39,153 +42,215 @@ class _SubmitScreenState extends State<SubmitScreen> {
         backgroundColor: Colors.transparent,
       ),
       backgroundColor: const Color(0xffe9f0fb),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 30,
-          right: 30,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              //
-              const SizedBox(
-                height: 60,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: checkbox
-                    .map((e) => GestureDetector(
-                          onTap: () {
-                            selectedValue = e;
-                            setState(() {});
-                          },
-                          child: Row(
-                            children: [
-                              Icon(selectedValue == e
-                                  ? Icons.check_box
-                                  : Icons.check_box_outline_blank_outlined),
-                              Text(e),
-                            ],
-                          ),
-                        ))
-                    .toList(),
-              ),
-              const SizedBox(
-                height: 14,
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 30,
+            right: 30,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 100),
+                SvgPicture.asset(
+                  'assets/svg/logo.svg',
+                  height: 80,
                 ),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(
-                        Icons.mail,
-                        color: Colors.blue,
-                      ),
-                      labelText: 'Description'),
-                  controller: description,
-                  validator: (v) =>
-                      v == null || v.isEmpty ? 'Validated Description' : null,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                const SizedBox(height: 100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: checkbox
+                      .map((e) => GestureDetector(
+                            onTap: () {
+                              selectedValue = e;
+                              setState(() {});
+                            },
+                            child: Row(
+                              children: [
+                                selectedValue == e
+                                    ? SvgPicture.asset(
+                                        'assets/icons/round_tick.svg',
+                                        height: 20,
+                                        width: 20,
+                                      )
+                                    : SvgPicture.asset('assets/icons/round.svg',
+                                        height: 20, width: 20),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(e),
+                              ],
+                            ),
+                          ))
+                      .toList(),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                // height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                const SizedBox(
+                  height: 14,
                 ),
-                child: TextFormField(
-                  validator: (v) =>
-                      v == null || v.isEmpty ? 'Validated Amounts' : null,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  //obscureText: true,
-
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(
-                        Icons.monetization_on,
-                        color: Colors.blue,
-                      ),
-                      labelText: 'Amounts'),
-                  controller: value,
-                ),
-              ),
-              const SizedBox(
-                height: 14,
-              ),
-              GestureDetector(
-                onTap: () {
-                  // required des and amount
-
-                  if (selectedValue.isNotEmpty &&
-                      description.text.isNotEmpty &&
-                      value.text.isNotEmpty) {
-                    _formKey.currentState?.validate();
-
-                    final toNum = double.parse(value.text);
-                    transactionsData.add(Transaction(
-                      title: selectedValue,
-                      description: description.text,
-                      value: toNum,
-                      logo: selectedValue == 'Sent'
-                          ? 'up'
-                          : selectedValue == 'Recieve'
-                              ? 'down'
-                              : 'dollar',
-                    ));
-
-                    Navigator.pop(context);
-                  } else {
-                    _formKey.currentState?.validate();
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('Valid')));
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 45,
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  width: 350,
                   decoration: BoxDecoration(
-                    color: const Color(0xff5B628F),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(5, 5),
-                        blurRadius: 10,
-                      )
-                    ],
                   ),
-                  child: const Center(
-                    child: Text(
-                      'Clear',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(
+                          Icons.mail,
+                          color: Color(0xff5B628F),
+                        ),
+                        labelText: 'Description'),
+                    controller: description,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Validated Description' : null,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  // height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextFormField(
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Validated Amounts' : null,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    //obscureText: true,
+
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(
+                          Icons.monetization_on,
+                          color: Color(0xff5B628F),
+                        ),
+                        labelText: 'Amounts'),
+                    controller: value,
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                const SizedBox(
+                  height: 14,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (selectedValue.isNotEmpty &&
+                        description.text.isNotEmpty &&
+                        value.text.isNotEmpty) {
+                      _formKey.currentState?.validate();
+
+                      final toNum = double.parse(value.text);
+
+                      transactionsData.insert(
+                          0,
+                          Transaction(
+                            title: selectedValue,
+                            description: description.text,
+                            value: toNum,
+                            logo: selectedValue == 'Sent'
+                                ? 'up'
+                                : selectedValue == 'Recieve'
+                                    ? 'down'
+                                    : 'dollar',
+                          ));
+
+                      AnimatedSnackBar(
+                        mobileSnackBarPosition: MobileSnackBarPosition.top,
+                        duration: const Duration(milliseconds: 1500),
+                        builder: ((context) {
+                          return Container(
+                            padding: const EdgeInsets.all(8),
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'You sent Successfully!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ).show(context);
+
+                      Future.delayed(const Duration(milliseconds: 2500), () {
+                        setState(() {
+                          Navigator.pop(context);
+                        });
+                      });
+                    } else {
+                      _formKey.currentState?.validate();
+                      AnimatedSnackBar(
+                        mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+                        duration: const Duration(milliseconds: 5500),
+                        builder: ((context) {
+                          return Container(
+                            padding: const EdgeInsets.all(8),
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Wrong Please Check Again!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ).show(context);
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff5B628F),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(5, 5),
+                          blurRadius: 10,
+                        )
+                      ],
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-            ],
+                const SizedBox(
+                  height: 24,
+                ),
+              ],
+            ),
           ),
         ),
       ),
