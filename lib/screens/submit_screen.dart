@@ -17,7 +17,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
   final value = TextEditingController();
   bool validateDescription = false;
   bool validateValue = false;
-  final checkbox = ['Sent', 'Recieve', 'Loan'];
+  final checkbox = ['Sent', 'Receive', 'Loan'];
   String selectedValue = '';
 
   final _formKey = GlobalKey<FormState>();
@@ -157,11 +157,11 @@ class _SubmitScreenState extends State<SubmitScreen> {
                             value: toNum,
                             logo: selectedValue == 'Sent'
                                 ? 'up'
-                                : selectedValue == 'Recieve'
+                                : selectedValue == 'Receive'
                                     ? 'down'
                                     : 'dollar',
                           ));
-
+                      sumAmount();
                       AnimatedSnackBar(
                         mobileSnackBarPosition: MobileSnackBarPosition.top,
                         duration: const Duration(milliseconds: 1500),

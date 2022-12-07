@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:profile_ui/screens/about.dart';
+import 'package:profile_ui/screens/edit_screen.dart';
 import 'package:profile_ui/screens/splash_screen.dart';
 
 void main() {
@@ -16,6 +18,10 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
+      routes: {
+        '/edit_screen': (context) => const EditScreen(),
+        '/about': (context) => const AboutScreen(),
+      },
     );
   }
 }

@@ -22,6 +22,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var selectItem = '';
+  String dropdownvalue = 'Item 1';
+
+  @override
+  void initState() {
+    sumAmount();
+    super.initState();
+  }
+
   ScrollController controller = ScrollController();
 
   @override
@@ -62,12 +71,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {},
                             icon: const Icon(Icons.short_text_outlined),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.more_vert,
-                            ),
-                          ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     debugPrint('=========is work');
+
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.more_vert,
+                          //   ),
+                          // ),
+                          PopupMenuButton(onSelected: (value) {
+                            setState(() {
+                              selectItem = value.toString();
+                            });
+                            Navigator.pushNamed(context, value.toString());
+                          }, itemBuilder: (BuildContext context) {
+                            return [
+                              const PopupMenuItem(
+                                value: '/edit_screen',
+                                child: Text('Edit'),
+                              ),
+                              const PopupMenuItem(
+                                value: '/about',
+                                child: Text('About'),
+                              ),
+                            ];
+                          })
                         ],
                       ),
                     ),
@@ -114,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomLabel(
-                              value: "\$${TotalData().income.amount!.round()}",
+                              value: "\$${totaldata.received.round()}",
                               label: "${TotalData().income.label}"),
                           Container(
                             color: Colors.grey,
@@ -122,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 50,
                           ),
                           CustomLabel(
-                              value: "\$${TotalData().expenes.amount!.round()}",
+                              value: "\$${totaldata.sent.round()}",
                               label: "${TotalData().expenes.label}"),
                           Container(
                             color: Colors.grey,
@@ -130,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 50,
                           ),
                           CustomLabel(
-                              value: "\$${TotalData().loan.amount!.round()}",
+                              value: "\$${totaldata.loan.round()}",
                               label: "${TotalData().loan.label}"),
                         ],
                       ),

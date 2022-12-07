@@ -11,3 +11,15 @@ class Transaction {
     this.value,
   });
 }
+
+class Totaldata {
+  double sent;
+  double received;
+  double loan;
+
+  Totaldata({
+    this.sent = 0,
+    this.received = 0,
+    this.loan = 0,
+  });
+}
