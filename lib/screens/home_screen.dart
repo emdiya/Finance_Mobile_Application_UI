@@ -71,32 +71,88 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {},
                             icon: const Icon(Icons.short_text_outlined),
                           ),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     debugPrint('=========is work');
-
-                          //   },
-                          //   icon: const Icon(
-                          //     Icons.more_vert,
-                          //   ),
-                          // ),
-                          PopupMenuButton(onSelected: (value) {
-                            setState(() {
-                              selectItem = value.toString();
-                            });
-                            Navigator.pushNamed(context, value.toString());
-                          }, itemBuilder: (BuildContext context) {
-                            return [
-                              const PopupMenuItem(
-                                value: '/edit_screen',
-                                child: Text('Edit'),
-                              ),
-                              const PopupMenuItem(
-                                value: '/about',
-                                child: Text('About'),
-                              ),
-                            ];
-                          })
+                          PopupMenuButton(
+                            iconSize: 20,
+                            elevation: 1,
+                            splashRadius: 200,
+                            color: const Color(0xffe9f0fb),
+                            position: PopupMenuPosition.under,
+                            offset: const Offset(5, -5),
+                            icon: const Icon(Icons.more_vert_outlined),
+                            onSelected: (value) {
+                              setState(() {
+                                selectItem = value.toString();
+                              });
+                              Navigator.pushNamed(context, value.toString());
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            itemBuilder: (BuildContext context) {
+                              return [
+                                PopupMenuItem(
+                                  value: '/edit_screen',
+                                  child: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.edit_outlined,
+                                        size: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'Edit',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: '/about',
+                                  child: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.info_outlined,
+                                        size: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'Search',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: '/about',
+                                  child: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.search,
+                                        size: 16,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'About',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ];
+                            },
+                          ),
                         ],
                       ),
                     ),
