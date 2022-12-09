@@ -23,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var selectItem = '';
-  String dropdownvalue = 'Item 1';
 
   @override
   void initState() {
@@ -42,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 5,
+                top: 20,
                 left: 26,
                 right: 26,
               ),
@@ -83,7 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               setState(() {
                                 selectItem = value.toString();
                               });
-                              Navigator.pushNamed(context, value.toString());
+                              Navigator.pushNamed(context, value.toString())
+                                  .then((value) {
+                                setState(() {});
+                              });
                             },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -170,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 12,
                         ),
                         Text(
-                          persondata.name ?? '',
+                          Storedata.newname,
                           style: const TextStyle(
                             color: Color(0xff5B628F),
                             fontSize: 24,
@@ -182,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 8,
                         ),
                         Text(
-                          persondata.position ?? '',
+                          Storedata.newposition,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,

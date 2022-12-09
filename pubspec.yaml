@@ -43,6 +43,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+3
   animated_snack_bar: ^0.3.0
   image_picker: ^0.7.2+1
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:

@@ -13,7 +13,7 @@ class TransactionItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 10,
+        top: 5,
       ),
       child: Container(
           height: 80,

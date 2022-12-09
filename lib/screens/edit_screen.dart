@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../data/profile_info.dart';
+import '../widget/pickupimage.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
@@ -14,6 +12,16 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
+  String newname = '';
+  String newposition = '';
+  @override
+  void initState() {
+    newname = Storedata.newname;
+    newposition = Storedata.newposition;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +33,7 @@ class _EditScreenState extends State<EditScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: const Text(
-          'Update Information',
+          'Update Profile',
           style: TextStyle(
             color: Color(0xff5B628F),
             fontSize: 20,
@@ -47,143 +55,10 @@ class _EditScreenState extends State<EditScreen> {
                     bottom: 30,
                   ),
                   child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          ClipOval(
-                            child: Image.network(
-                              'https://img.seadn.io/files/bbefba536cb4156606a4e01953bfecab.png?fit=max&w=1000',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 5,
-                            right: 20,
-                            child: InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Container(
-                                      height: 140,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(36),
-                                        color: Colors.white,
-                                      ),
-                                      padding: const EdgeInsets.all(20),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Text(
-                                            'Options Choose',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                height: 50,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.blue,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                ),
-                                                child: IconButton(
-                                                  onPressed: () async {
-                                                    try {
-                                                      PickedFile? pickedFile;
-                                                      pickedFile =
-                                                          await ImagePicker()
-                                                              .getImage(
-                                                                  source:
-                                                                      ImageSource
-                                                                          .camera);
-                                                      if (pickedFile != null) {
-                                                        File imageFile = File(
-                                                            pickedFile.path);
-                                                      }
-                                                    } catch (e) {
-                                                      debugPrint('=====$e');
-                                                    }
-                                                  }, //() => pickImage(),
-                                                  icon: const Icon(
-                                                    Icons.camera_enhance,
-                                                    color: Colors.white,
-                                                    size: 30,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 50,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.blue,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                ),
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    ImagePicker().getImage(
-                                                        source: ImageSource
-                                                            .gallery);
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.image,
-                                                    color: Colors.white,
-                                                    size: 30,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                                debugPrint('========is work');
-                              },
-                              child: Icon(
-                                Icons.camera_alt,
-                                size: 20,
-                                color: Colors.grey.shade700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
+                    children: const [
+                      PickUpImage(),
+                      SizedBox(
                         height: 12,
-                      ),
-                      Text(
-                        persondata.name ?? '',
-                        style: const TextStyle(
-                          color: Color(0xff5B628F),
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Alata',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        persondata.position ?? '',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Alata',
-                        ),
                       ),
                     ],
                   ),
@@ -198,6 +73,13 @@ class _EditScreenState extends State<EditScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        newname = value;
+                        debugPrint('new Name = $newname');
+                      });
+                    },
+                    initialValue: Storedata.newname,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -220,6 +102,13 @@ class _EditScreenState extends State<EditScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        newposition = value;
+                        debugPrint('new Name = $newposition');
+                      });
+                    },
+                    initialValue: Storedata.newposition,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -235,37 +124,51 @@ class _EditScreenState extends State<EditScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
                   child: GestureDetector(
-                    onTap: () {
-                      AnimatedSnackBar(
-                        mobileSnackBarPosition: MobileSnackBarPosition.top,
-                        duration: const Duration(milliseconds: 5500),
-                        builder: ((context) {
-                          return Container(
-                            padding: const EdgeInsets.all(8),
-                            height: 40,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Updated Successfully!',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
+                    onTap: () async {
+                      debugPrint('========== $newname');
+                      debugPrint('========== $newposition');
+
+                      if (newname != persondata.name ||
+                          newposition != persondata.position) {
+                        debugPrint("=======Update");
+                        AnimatedSnackBar(
+                          mobileSnackBarPosition: MobileSnackBarPosition.top,
+                          duration: const Duration(milliseconds: 5500),
+                          builder: ((context) {
+                            return Container(
+                              padding: const EdgeInsets.all(8),
+                              height: 40,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Updated Successfully!',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      ).show(context);
+                            );
+                          }),
+                        ).show(context);
+                        Storedata.newname = newname;
+                        Storedata.newposition = newposition;
+                        Navigator.pop(context);
+                      } else {
+                        debugPrint('===========No Update');
+                      }
                     },
                     child: Container(
                       width: double.infinity,
                       height: 45,
                       decoration: BoxDecoration(
-                        color: const Color(0xff5B628F),
+                        color: newname != Storedata.newname
+                            ? Colors.blue
+                            : Colors.white.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: const [
                           BoxShadow(
@@ -275,11 +178,13 @@ class _EditScreenState extends State<EditScreen> {
                           )
                         ],
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           'Update',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Storedata.newname != persondata.name
+                                ? Colors.white
+                                : Colors.black.withOpacity(0.5),
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),
