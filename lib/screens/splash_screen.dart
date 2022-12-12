@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:profile_ui/screens/home_screen.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -39,7 +38,6 @@ class SplashScreen extends StatelessWidget {
       splashIconSize: 600,
       duration: 4000,
       splashTransition: SplashTransition.slideTransition,
-      pageTransitionType: PageTransitionType.leftToRightWithFade,
       animationDuration: const Duration(milliseconds: 1000),
     );
   }

@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/data/transaction_data.dart';
-import 'package:profile_ui/models/amount_model.dart';
 import 'package:profile_ui/screens/recent_transaction.dart';
-
-import 'package:profile_ui/widget/custom_label.dart';
+import 'package:profile_ui/widget/custom_amount_label.dart';
+import 'package:profile_ui/widget/custom_profile.dart';
 import 'package:profile_ui/widget/transaction_items.dart';
 
 import 'submit_screen.dart';
@@ -73,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           PopupMenuButton(
                             iconSize: 20,
                             elevation: 1,
-                            splashRadius: 200,
+                            splashRadius: 1,
                             color: const Color(0xffe9f0fb),
                             position: PopupMenuPosition.under,
                             offset: const Offset(5, -5),
@@ -84,7 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               });
                               Navigator.pushNamed(context, value.toString())
                                   .then((value) {
-                                setState(() {});
+                                setState(() {
+                                  debugPrint('Pop backs');
+                                });
                               });
                             },
                             shape: RoundedRectangleBorder(
@@ -158,68 +159,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    Column(
-                      children: [
-                        ClipOval(
-                          child: Image.network(
-                            'https://img.seadn.io/files/bbefba536cb4156606a4e01953bfecab.png?fit=max&w=1000',
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          Storedata.newname,
-                          style: const TextStyle(
-                            color: Color(0xff5B628F),
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Alata',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          Storedata.newposition,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Alata',
-                          ),
-                        ),
-                      ],
+                    CutomProfile(
+                      pf: profiledata,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 22, left: 50, right: 50, bottom: 36),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomLabel(
-                              value: "\$${totaldata.received.round()}",
-                              label: "${TotalData().income.label}"),
-                          Container(
-                            color: Colors.grey,
-                            width: 0.5,
-                            height: 50,
-                          ),
-                          CustomLabel(
-                              value: "\$${totaldata.sent.round()}",
-                              label: "${TotalData().expenes.label}"),
-                          Container(
-                            color: Colors.grey,
-                            width: 0.5,
-                            height: 50,
-                          ),
-                          CustomLabel(
-                              value: "\$${totaldata.loan.round()}",
-                              label: "${TotalData().loan.label}"),
-                        ],
+                      child: CustomAmountLabel(
+                        totalModel: totalModel,
                       ),
                     )
                   ],
@@ -263,9 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: controller,
                 // reverse: true,/
                 padding: EdgeInsets.zero,
-                itemCount: transactionsData.length,
+                itemCount: transactionDataList.length,
                 itemBuilder: ((_, index) => TransactionItems(
-                      transaction: transactionsData[index],
+                      transaction: transactionDataList[index],
                     )),
               ),
             ),

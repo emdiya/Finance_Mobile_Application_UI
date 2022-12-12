@@ -1,5 +1,6 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_ui/models/profile_model/profile_model.dart';
 
 import '../data/profile_info.dart';
 import '../widget/pickupimage.dart';
@@ -14,11 +15,13 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   String newname = '';
   String newposition = '';
+  ProfileModel pf = ProfileModel(name: '', position: '');
   @override
   void initState() {
     debugPrint("test new postion============== $newposition");
-    newname = Storedata.newname;
-    newposition = Storedata.newposition;
+    pf = profiledata;
+    newname = profiledata.name;
+    newposition = profiledata.position;
 
     super.initState();
   }
@@ -76,11 +79,12 @@ class _EditScreenState extends State<EditScreen> {
                   child: TextFormField(
                     onChanged: (value) {
                       setState(() {
+                        pf = pf.copyWith(name: value);
                         newname = value;
                         debugPrint('new Name = $newname');
                       });
                     },
-                    initialValue: Storedata.newname,
+                    initialValue: profiledata.name,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -105,11 +109,12 @@ class _EditScreenState extends State<EditScreen> {
                   child: TextFormField(
                     onChanged: (value) {
                       setState(() {
+                        pf = pf.copyWith(position: value);
                         newposition = value;
                         debugPrint('new position = $newposition');
                       });
                     },
-                    initialValue: Storedata.newposition,
+                    initialValue: profiledata.position,
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -129,8 +134,7 @@ class _EditScreenState extends State<EditScreen> {
                       debugPrint('========== $newname');
                       debugPrint('========== $newposition');
 
-                      if (newname != Storedata.newname ||
-                          newposition != Storedata.newposition) {
+                      if (pf != profiledata) {
                         debugPrint("=======Update");
                         AnimatedSnackBar(
                           mobileSnackBarPosition: MobileSnackBarPosition.top,
@@ -156,9 +160,15 @@ class _EditScreenState extends State<EditScreen> {
                             );
                           }),
                         ).show(context);
-                        Storedata.newname = newname;
-                        Storedata.newposition = newposition;
-                        Navigator.pop(context);
+
+                        setState(() {
+                          profiledata = profiledata.copyWith(
+                              name: pf.name, position: pf.position);
+                          Navigator.pop(context);
+                        });
+
+                        //Storedata.newposition = newposition;
+
                       } else {
                         debugPrint('===========No Update');
                       }
@@ -167,9 +177,9 @@ class _EditScreenState extends State<EditScreen> {
                       width: double.infinity,
                       height: 45,
                       decoration: BoxDecoration(
-                        color: newname != Storedata.newname
+                        color: profiledata.name != pf.name
                             ? const Color(0xff5B628F)
-                            : newposition != Storedata.newposition
+                            : profiledata.position != pf.position
                                 ? const Color(0xff5B628F)
                                 : const Color(0xff5B628F).withOpacity(0.5),
                         borderRadius: BorderRadius.circular(20),
@@ -185,9 +195,9 @@ class _EditScreenState extends State<EditScreen> {
                         child: Text(
                           'Update',
                           style: TextStyle(
-                            color: newname != Storedata.newname
+                            color: profiledata.name != pf.name
                                 ? Colors.white
-                                : newposition != Storedata.newposition
+                                : profiledata.position != pf.position
                                     ? Colors.white
                                     : Colors.white.withOpacity(0.5),
                             fontSize: 18,

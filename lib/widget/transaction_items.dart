@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:profile_ui/models/transaction_model.dart';
+
+import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 
 class TransactionItems extends StatelessWidget {
-  final Transaction transaction;
+  final TransactionModel transaction;
   const TransactionItems({
     Key? key,
     required this.transaction,

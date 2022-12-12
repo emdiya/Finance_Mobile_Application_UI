@@ -2,8 +2,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/transaction_data.dart';
-
-import '../models/transaction_model.dart';
+import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 
 class SubmitScreen extends StatefulWidget {
   const SubmitScreen({super.key});
@@ -56,7 +55,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 const SizedBox(height: 100),
                 SvgPicture.asset(
                   'assets/svg/logo.svg',
-                  height: 80,
+                  height: 100,
                 ),
                 const SizedBox(height: 100),
                 Row(
@@ -159,9 +158,9 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
                       final toNum = double.parse(value.text);
 
-                      transactionsData.insert(
+                      transactionDataList.insert(
                           0,
-                          Transaction(
+                          TransactionModel(
                             title: selectedValue,
                             description: description.text,
                             value: toNum,
@@ -238,8 +237,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
                               description.text.isNotEmpty &&
                               value.text.isNotEmpty
                           ? const Color(0xff5B628F)
-                          : Colors
-                              .red, // const Color(0xff5B628F).withOpacity(0.5),
+                          : const Color(0xff5B628F).withOpacity(
+                              0.5), // const Color(0xff5B628F).withOpacity(0.5),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(
@@ -249,11 +248,15 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         )
                       ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         'Submit',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: selectedValue != '' &&
+                                  description.text.isNotEmpty &&
+                                  value.text.isNotEmpty
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.5),
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),

@@ -1,40 +1,42 @@
-import '../models/transaction_model.dart';
+import 'package:profile_ui/models/total_data/total_data.dart';
+import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 
-Totaldata totaldata = Totaldata();
+TotalData totalData = TotalData();
 
-final transactionsData = [
-  Transaction(
+final transactionDataList = [
+  TransactionModel(
     logo: 'up',
     title: 'Sent',
     description: 'Sending Payment to Clients',
     value: 150,
   ),
-  Transaction(
+  TransactionModel(
     logo: 'down',
     title: 'Receive',
     description: 'Receiving Salary from Company',
     value: 250,
   ),
-  Transaction(
+  TransactionModel(
     logo: 'dollar',
     title: 'Loan',
     description: 'Loan for the  Car',
     value: 400,
   ),
-  Transaction(
+  TransactionModel(
     logo: 'dollar',
     title: 'Sent',
-    description: 'Sent to Diyas',
-    value: 450,
+    description: 'Sent to Diya',
+    value: 750,
   ),
 ];
 
+/// Sum Amount
 void sumAmount() {
   double sumSent = 0;
   double sumReceive = 0;
   double sumLoan = 0;
 
-  transactionsData.map((e) {
+  transactionDataList.map((e) {
     if (e.title?.toLowerCase() == 'sent') {
       sumSent = sumSent + e.value!;
     }
@@ -46,5 +48,5 @@ void sumAmount() {
     }
   }).toList();
 
-  totaldata = Totaldata(loan: sumLoan, received: sumReceive, sent: sumSent);
+  totalData = TotalData(loan: sumLoan, received: sumReceive, sent: sumSent);
 }
