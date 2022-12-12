@@ -7,5 +7,5 @@ final persondata = Person(
 
 class Storedata {
   static String newname = 'Hira Riaz';
-  static String newposition = '';
+  static String newposition = 'UX/UI Designer';
 }

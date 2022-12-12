@@ -19,6 +19,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
   bool validateValue = false;
   final checkbox = ['Sent', 'Receive', 'Loan'];
   String selectedValue = '';
+  String titleDescription = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -63,8 +64,13 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   children: checkbox
                       .map((e) => GestureDetector(
                             onTap: () {
-                              selectedValue = e;
-                              setState(() {});
+                              setState(() {
+                                if (selectedValue != e) {
+                                  selectedValue = e;
+                                } else {
+                                  selectedValue = '';
+                                }
+                              });
                             },
                             child: Row(
                               children: [
@@ -98,6 +104,10 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextFormField(
+                    onChanged: (value) {
+                      titleDescription = value;
+                      setState(() {});
+                    },
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -224,7 +234,12 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     width: double.infinity,
                     height: 45,
                     decoration: BoxDecoration(
-                      color: const Color(0xff5B628F),
+                      color: selectedValue != '' &&
+                              description.text.isNotEmpty &&
+                              value.text.isNotEmpty
+                          ? const Color(0xff5B628F)
+                          : Colors
+                              .red, // const Color(0xff5B628F).withOpacity(0.5),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(

@@ -16,6 +16,7 @@ class _EditScreenState extends State<EditScreen> {
   String newposition = '';
   @override
   void initState() {
+    debugPrint("test new postion============== $newposition");
     newname = Storedata.newname;
     newposition = Storedata.newposition;
 
@@ -105,7 +106,7 @@ class _EditScreenState extends State<EditScreen> {
                     onChanged: (value) {
                       setState(() {
                         newposition = value;
-                        debugPrint('new Name = $newposition');
+                        debugPrint('new position = $newposition');
                       });
                     },
                     initialValue: Storedata.newposition,
@@ -128,8 +129,8 @@ class _EditScreenState extends State<EditScreen> {
                       debugPrint('========== $newname');
                       debugPrint('========== $newposition');
 
-                      if (newname != persondata.name ||
-                          newposition != persondata.position) {
+                      if (newname != Storedata.newname ||
+                          newposition != Storedata.newposition) {
                         debugPrint("=======Update");
                         AnimatedSnackBar(
                           mobileSnackBarPosition: MobileSnackBarPosition.top,
@@ -167,8 +168,10 @@ class _EditScreenState extends State<EditScreen> {
                       height: 45,
                       decoration: BoxDecoration(
                         color: newname != Storedata.newname
-                            ? Colors.blue
-                            : Colors.white.withOpacity(0.5),
+                            ? const Color(0xff5B628F)
+                            : newposition != Storedata.newposition
+                                ? const Color(0xff5B628F)
+                                : const Color(0xff5B628F).withOpacity(0.5),
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: const [
                           BoxShadow(
@@ -182,9 +185,11 @@ class _EditScreenState extends State<EditScreen> {
                         child: Text(
                           'Update',
                           style: TextStyle(
-                            color: Storedata.newname != persondata.name
+                            color: newname != Storedata.newname
                                 ? Colors.white
-                                : Colors.black.withOpacity(0.5),
+                                : newposition != Storedata.newposition
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.5),
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),

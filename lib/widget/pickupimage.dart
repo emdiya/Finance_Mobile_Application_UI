@@ -43,7 +43,7 @@ class _PickUpImageState extends State<PickUpImage> {
               Platform.isIOS
                   ? showCupertinoModalPopup(
                       context: context,
-                      builder: (context) => CupertinoActionSheet(
+                      builder: (_) => CupertinoActionSheet(
                         actions: [
                           CupertinoActionSheetAction(
                             onPressed: () async {
@@ -75,6 +75,8 @@ class _PickUpImageState extends State<PickUpImage> {
                                 }
                               } on PlatformException catch (e) {
                                 debugPrint('Failed to Pick image: $e');
+                              } finally {
+                                Navigator.pop(_);
                               }
                             }, //() => pickImage(),
                             child: const Text('Gallery'),
