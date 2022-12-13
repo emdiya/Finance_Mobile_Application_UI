@@ -22,6 +22,7 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
 mixin _$ProfileModel {
   String get name => throw _privateConstructorUsedError;
   String get position => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $ProfileModelCopyWith<$Res> {
           ProfileModel value, $Res Function(ProfileModel) then) =
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
-  $Res call({String name, String position});
+  $Res call({String name, String position, String image});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   $Res call({
     Object? name = null,
     Object? position = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -62,6 +64,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +81,7 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       __$$_ProfileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String position});
+  $Res call({String name, String position, String image});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$_ProfileModelCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? position = null,
+    Object? image = null,
   }) {
     return _then(_$_ProfileModel(
       name: null == name
@@ -101,6 +108,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -108,7 +119,8 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ProfileModel implements _ProfileModel {
-  _$_ProfileModel({required this.name, required this.position});
+  _$_ProfileModel(
+      {required this.name, required this.position, required this.image});
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
@@ -117,10 +129,12 @@ class _$_ProfileModel implements _ProfileModel {
   final String name;
   @override
   final String position;
+  @override
+  final String image;
 
   @override
   String toString() {
-    return 'ProfileModel(name: $name, position: $position)';
+    return 'ProfileModel(name: $name, position: $position, image: $image)';
   }
 
   @override
@@ -130,12 +144,13 @@ class _$_ProfileModel implements _ProfileModel {
             other is _$_ProfileModel &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.position, position) ||
-                other.position == position));
+                other.position == position) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, position);
+  int get hashCode => Object.hash(runtimeType, name, position, image);
 
   @JsonKey(ignore: true)
   @override
@@ -154,7 +169,8 @@ class _$_ProfileModel implements _ProfileModel {
 abstract class _ProfileModel implements ProfileModel {
   factory _ProfileModel(
       {required final String name,
-      required final String position}) = _$_ProfileModel;
+      required final String position,
+      required final String image}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
@@ -163,6 +179,8 @@ abstract class _ProfileModel implements ProfileModel {
   String get name;
   @override
   String get position;
+  @override
+  String get image;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

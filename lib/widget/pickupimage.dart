@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:profile_ui/data/profile_info.dart';
 
 class PickUpImage extends StatefulWidget {
   const PickUpImage({
@@ -29,7 +30,7 @@ class _PickUpImageState extends State<PickUpImage> {
                   height: 120,
                 )
               : Image.network(
-                  'https://img.seadn.io/files/bbefba536cb4156606a4e01953bfecab.png?fit=max&w=1000',
+                  profiledata.image,
                   width: 120,
                   height: 120,
                   fit: BoxFit.cover,
@@ -52,7 +53,7 @@ class _PickUpImageState extends State<PickUpImage> {
                                 image = await ImagePicker()
                                     .getImage(source: ImageSource.camera);
                                 if (image != null) {
-                                  File imageTemp = File(image.path);
+                                  File imageTemp = File(imageSave);
 
                                   setState(() => this.image = imageTemp);
                                 }
@@ -69,9 +70,9 @@ class _PickUpImageState extends State<PickUpImage> {
                                 image = await ImagePicker()
                                     .getImage(source: ImageSource.gallery);
                                 if (image != null) {
-                                  File imageTemp = File(image.path);
+                                  imageSave = image.path;
 
-                                  setState(() => this.image = imageTemp);
+                                  setState(() => this.image = File(imageSave));
                                 }
                               } on PlatformException catch (e) {
                                 debugPrint('Failed to Pick image: $e');

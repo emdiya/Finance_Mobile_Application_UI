@@ -30,7 +30,7 @@ final transactionDataList = [
   ),
 ];
 
-/// Sum Amount
+/// SumAmount
 void sumAmount() {
   double sumSent = 0;
   double sumReceive = 0;

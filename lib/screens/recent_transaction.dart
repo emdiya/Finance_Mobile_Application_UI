@@ -9,6 +9,9 @@ class RecentTransactions extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffe9f0fb),
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Color(0xff5B628F),
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         //leading: IconButton(onPressed: () {}, icon: const Icon(Icons.backpack)),

@@ -15,7 +15,7 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   String newname = '';
   String newposition = '';
-  ProfileModel pf = ProfileModel(name: '', position: '');
+  ProfileModel pf = ProfileModel(name: '', position: '', image: '');
   @override
   void initState() {
     debugPrint("test new postion============== $newposition");
@@ -163,7 +163,9 @@ class _EditScreenState extends State<EditScreen> {
 
                         setState(() {
                           profiledata = profiledata.copyWith(
-                              name: pf.name, position: pf.position);
+                              name: pf.name,
+                              position: pf.position,
+                              image: imageSave);
                           Navigator.pop(context);
                         });
 

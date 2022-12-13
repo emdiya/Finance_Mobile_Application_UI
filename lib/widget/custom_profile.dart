@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/models/profile_model/profile_model.dart';
 
 class CutomProfile extends StatelessWidget {
@@ -13,13 +16,20 @@ class CutomProfile extends StatelessWidget {
     return Column(
       children: [
         ClipOval(
-          child: Image.network(
-            'https://img.seadn.io/files/bbefba536cb4156606a4e01953bfecab.png?fit=max&w=1000',
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-        ),
+            child: profiledata.image.toLowerCase().startsWith('https://')
+                ? Image.network(
+                    profiledata.image,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  )
+                : ClipOval(
+                    child: Image.file(
+                    File(profiledata.image),
+                    fit: BoxFit.cover,
+                    width: 100,
+                    height: 100,
+                  ))),
         const SizedBox(
           height: 12,
         ),

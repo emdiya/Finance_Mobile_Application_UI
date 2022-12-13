@@ -8,6 +8,7 @@ class ProfileModel with _$ProfileModel {
   factory ProfileModel({
     required String name,
     required String position,
+    required String image,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
