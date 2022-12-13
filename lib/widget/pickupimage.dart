@@ -16,15 +16,14 @@ class PickUpImage extends StatefulWidget {
 }
 
 class _PickUpImageState extends State<PickUpImage> {
-  File? image;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ClipOval(
-          child: image != null
+          child: !profiledata.image.toLowerCase().startsWith('http')
               ? Image.file(
-                  image!,
+                  File(profiledata.image),
                   fit: BoxFit.cover,
                   width: 120,
                   height: 120,
@@ -53,9 +52,9 @@ class _PickUpImageState extends State<PickUpImage> {
                                 image = await ImagePicker()
                                     .getImage(source: ImageSource.camera);
                                 if (image != null) {
-                                  File imageTemp = File(imageSave);
-
-                                  setState(() => this.image = imageTemp);
+                                  // File imageTemp = File(imageSave);
+                                  // this.image = imageTemp;
+                                  setState(() {});
                                 }
                               } on PlatformException catch (e) {
                                 debugPrint('Failed to Pick image: $e');
@@ -69,10 +68,12 @@ class _PickUpImageState extends State<PickUpImage> {
                                 PickedFile? image;
                                 image = await ImagePicker()
                                     .getImage(source: ImageSource.gallery);
-                                if (image != null) {
+                                if (image!.path != "") {
                                   imageSave = image.path;
-
-                                  setState(() => this.image = File(imageSave));
+                                  // this.image = File(imageSave);
+                                  profiledata =
+                                      profiledata.copyWith(image: imageSave);
+                                  setState(() {});
                                 }
                               } on PlatformException catch (e) {
                                 debugPrint('Failed to Pick image: $e');
@@ -124,10 +125,10 @@ class _PickUpImageState extends State<PickUpImage> {
                                           image = await ImagePicker().getImage(
                                               source: ImageSource.camera);
                                           if (image != null) {
-                                            File imageTemp = File(image.path);
+                                            // File imageTemp = File(image.path);
 
-                                            setState(
-                                                () => this.image = imageTemp);
+                                            // setState(
+                                            //     () => this.image = imageTemp);
                                           }
                                         } on PlatformException catch (e) {
                                           debugPrint(
@@ -155,10 +156,10 @@ class _PickUpImageState extends State<PickUpImage> {
                                           image = await ImagePicker().getImage(
                                               source: ImageSource.gallery);
                                           if (image != null) {
-                                            File imageTemp = File(image.path);
+                                            // File imageTemp = File(image.path);
 
-                                            setState(
-                                                () => this.image = imageTemp);
+                                            // setState(
+                                            //     () => this.image = imageTemp);
                                           }
                                         } on PlatformException catch (e) {
                                           debugPrint(
@@ -179,7 +180,7 @@ class _PickUpImageState extends State<PickUpImage> {
                         );
                       },
                     );
-              debugPrint('========is work');
+              debugPrint('-------------- Choose Image is working....');
             },
             child: Container(
               height: 20,

@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/models/profile_model/profile_model.dart';
+import 'dart:io';
 
 class CutomProfile extends StatelessWidget {
   final ProfileModel pf;
@@ -16,7 +15,7 @@ class CutomProfile extends StatelessWidget {
     return Column(
       children: [
         ClipOval(
-            child: profiledata.image.toLowerCase().startsWith('https://')
+            child: profiledata.image.toLowerCase().startsWith('http')
                 ? Image.network(
                     profiledata.image,
                     width: 100,

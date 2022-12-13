@@ -18,7 +18,7 @@ class _EditScreenState extends State<EditScreen> {
   ProfileModel pf = ProfileModel(name: '', position: '', image: '');
   @override
   void initState() {
-    debugPrint("test new postion============== $newposition");
+    debugPrint("test new postion -------------- $newposition");
     pf = profiledata;
     newname = profiledata.name;
     newposition = profiledata.position;
@@ -131,11 +131,11 @@ class _EditScreenState extends State<EditScreen> {
                   padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
                   child: GestureDetector(
                     onTap: () async {
-                      debugPrint('========== $newname');
-                      debugPrint('========== $newposition');
+                      debugPrint('--------------- $newname');
+                      debugPrint('--------------- $newposition');
 
                       if (pf != profiledata) {
-                        debugPrint("=======Update");
+                        debugPrint("------------ Update - Infomation");
                         AnimatedSnackBar(
                           mobileSnackBarPosition: MobileSnackBarPosition.top,
                           duration: const Duration(milliseconds: 5500),
@@ -166,13 +166,15 @@ class _EditScreenState extends State<EditScreen> {
                               name: pf.name,
                               position: pf.position,
                               image: imageSave);
+                          debugPrint(
+                              "-------Update Image - ${profiledata.image}");
                           Navigator.pop(context);
                         });
 
                         //Storedata.newposition = newposition;
 
                       } else {
-                        debugPrint('===========No Update');
+                        debugPrint('------------------ No Update - ');
                       }
                     },
                     child: Container(
