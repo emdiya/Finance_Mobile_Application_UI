@@ -159,17 +159,18 @@ class _SubmitScreenState extends State<SubmitScreen> {
                       final toNum = double.parse(value.text);
 
                       transactionDataList.insert(
-                          0,
-                          TransactionModel(
-                            title: selectedValue,
-                            description: description.text,
-                            value: toNum,
-                            logo: selectedValue == 'Sent'
-                                ? 'up'
-                                : selectedValue == 'Receive'
-                                    ? 'down'
-                                    : 'dollar',
-                          ));
+                        0,
+                        TransactionModel(
+                          title: selectedValue,
+                          description: description.text,
+                          value: toNum,
+                          logo: selectedValue == 'Sent'
+                              ? 'up'
+                              : selectedValue == 'Receive'
+                                  ? 'down'
+                                  : 'dollar',
+                        ),
+                      );
                       sumAmount();
                       AnimatedSnackBar(
                         mobileSnackBarPosition: MobileSnackBarPosition.top,
@@ -195,11 +196,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
                           );
                         }),
                       ).show(context);
-
-                      Future.delayed(const Duration(milliseconds: 2500), () {
-                        setState(() {
-                          Navigator.pop(context);
-                        });
+                      setState(() {
+                        Navigator.pop(context);
                       });
                     } else {
                       _formKey.currentState?.validate();

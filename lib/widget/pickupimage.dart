@@ -37,7 +37,7 @@ class _PickUpImageState extends State<PickUpImage> {
         ),
         Positioned(
           bottom: 10,
-          right: 5,
+          right: 7,
           child: InkWell(
             onTap: () {
               Platform.isIOS

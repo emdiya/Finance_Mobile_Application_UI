@@ -190,7 +190,7 @@ class _EditScreenState extends State<EditScreen> {
                         boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
-                            offset: Offset(5, 5),
+                            offset: Offset(0, 1),
                             blurRadius: 10,
                           )
                         ],
