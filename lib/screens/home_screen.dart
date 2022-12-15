@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/data/transaction_data.dart';
+import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 import 'package:profile_ui/screens/recent_transaction.dart';
+import 'package:profile_ui/screens/transaction_detail.dart';
 import 'package:profile_ui/widget/custom_amount_label.dart';
 import 'package:profile_ui/widget/custom_profile.dart';
 import 'package:profile_ui/widget/transaction_items.dart';
@@ -21,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TransactionModel transactionModel = TransactionModel();
+
   var selectItem = '';
 
   @override
@@ -206,14 +210,110 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: ListView.builder(
+                shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 controller: controller,
                 // reverse: true,/
                 padding: EdgeInsets.zero,
                 itemCount: transactionDataList.length,
-                itemBuilder: ((_, index) => TransactionItems(
-                      transaction: transactionDataList[index],
+                itemBuilder: ((_, index) => GestureDetector(
+                      onTap: () {
+                        debugPrint(
+                            '-------------- Transaction Detail is working...! ');
+
+                        if (transactionDataList[index].title?.toLowerCase() ==
+                            'receive') {
+                          debugPrint("-------- Receive -");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return TransactionDetail(
+                                transaction: transactionDataList[index],
+                              );
+                            }),
+                          );
+                        } else {
+                          debugPrint('------- no feature -');
+                          showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                height: 400,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(36),
+                                  color: Colors.white,
+                                ),
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 4,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xff595959),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 48,
+                                    ),
+                                    SvgPicture.asset(
+                                      'assets/svg/logo_oop.svg',
+                                      height: 198.68,
+                                      width: 323,
+                                    ),
+                                    const SizedBox(
+                                      height: 36,
+                                    ),
+                                    const Text(
+                                      'Oops !',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    const Text(
+                                      'This Feature Under Maintainace',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                      child: TransactionItems(
+                        transaction: transactionDataList[index],
+                      ),
                     )),
+
+                // Detail Screen All
+                // itemBuilder: (context, index) {
+                //   var currentItems = transactionDataList[index];
+                //   return GestureDetector(
+                //     onTap: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => TransactionDetail(
+                //             transactionModel: currentItems,
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //     child: TransactionItems(
+                //       transaction: transactionDataList[index],
+                //     ),
+                //   );
+                // },
               ),
             ),
             Padding(
