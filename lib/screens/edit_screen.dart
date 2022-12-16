@@ -36,6 +36,7 @@ class _EditScreenState extends State<EditScreen> {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
+        centerTitle: true,
         title: const Text(
           'Update Profile',
           style: TextStyle(

@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 import 'package:profile_ui/screens/submit_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TransactionDetail extends StatefulWidget {
   final TransactionModel transaction;
@@ -26,6 +26,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
     return Scaffold(
       backgroundColor: const Color(0xff5B628F),
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Recieve'),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -226,9 +227,25 @@ class _TransactionDetailState extends State<TransactionDetail> {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {
-                                        FlutterPhoneDirectCaller.callNumber(
-                                            '(+855) 143 45 67');
+                                      // onPressed: () {
+                                      //   final uri = Uri.parse(
+                                      //       'https://www.youtube.com');
+                                      //   launchUrl(
+                                      //     uri,
+                                      //   );
+                                      // },
+                                      onPressed: () async {
+                                        String telephoneNumber = '123456789';
+                                        String telephoneUrl =
+                                            "tel:$telephoneNumber";
+                                        final uri =
+                                            Uri.parse('tel:$telephoneUrl');
+
+                                        if (await canLaunchUrl(uri)) {
+                                          await launchUrl(uri);
+                                        } else {
+                                          throw "Error occured trying to call that number.";
+                                        }
                                       },
                                       child: const Text('(+855) 143 45 67'),
                                     )

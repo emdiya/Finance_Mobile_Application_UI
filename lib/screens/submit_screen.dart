@@ -26,6 +26,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         iconTheme: const IconThemeData(
           color: Color(0xff5B628F),
         ),
@@ -33,7 +34,6 @@ class _SubmitScreenState extends State<SubmitScreen> {
           'Submit Screen',
           style: TextStyle(
             color: Color(0xff5B628F),
-            fontFamily: 'Alata',
             fontWeight: FontWeight.w900,
             fontSize: 22,
           ),
