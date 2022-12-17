@@ -214,32 +214,20 @@ class _TransactionDetailState extends State<TransactionDetail> {
                                 Row(
                                   children: [
                                     const Text(
-                                      "Contact us ",
+                                      "Contact us",
                                       style: TextStyle(
                                         fontSize: 14,
                                       ),
                                     ),
-                                    const Text(
-                                      "(+855) 143 45 67",
-                                      style: TextStyle(
-                                        color: Color(0xFF000EB4),
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    TextButton(
-                                      // onPressed: () {
-                                      //   final uri = Uri.parse(
-                                      //       'https://www.youtube.com');
-                                      //   launchUrl(
-                                      //     uri,
-                                      //   );
-                                      // },
-                                      onPressed: () async {
+                                    GestureDetector(
+                                      onTap: () async {
+                                        debugPrint(
+                                            '--------------- is calling -');
                                         String telephoneNumber = '123456789';
                                         String telephoneUrl =
                                             "tel:$telephoneNumber";
                                         final uri =
-                                            Uri.parse('tel:$telephoneUrl');
+                                            Uri.parse('sms:$telephoneUrl');
 
                                         if (await canLaunchUrl(uri)) {
                                           await launchUrl(uri);
@@ -247,8 +235,14 @@ class _TransactionDetailState extends State<TransactionDetail> {
                                           throw "Error occured trying to call that number.";
                                         }
                                       },
-                                      child: const Text('(+855) 143 45 67'),
-                                    )
+                                      child: const Text(
+                                        '(+855) 143 45 67',
+                                        style: TextStyle(
+                                          color: Color(0xFF000EB4),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -271,13 +265,14 @@ class _TransactionDetailState extends State<TransactionDetail> {
                       GestureDetector(
                         onTap: () {
                           debugPrint("------------- ReTurn is Working...! -");
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  const SubmitScreen(),
+                                  const SubmitScreen(choice: 'Sent'),
                             ),
-                          );
+                          ).then((value) {});
                         },
                         child: Container(
                           height: 58,

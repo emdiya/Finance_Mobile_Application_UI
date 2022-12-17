@@ -1,11 +1,17 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:profile_ui/data/transaction_data.dart';
 import 'package:profile_ui/models/transaction_model/transaction_model.dart';
+import 'package:profile_ui/screens/home_screen.dart';
 
 class SubmitScreen extends StatefulWidget {
-  const SubmitScreen({super.key});
+  final String? choice;
+  const SubmitScreen({
+    Key? key,
+    this.choice,
+  }) : super(key: key);
 
   @override
   State<SubmitScreen> createState() => _SubmitScreenState();
@@ -19,6 +25,13 @@ class _SubmitScreenState extends State<SubmitScreen> {
   final checkbox = ['Sent', 'Receive', 'Loan'];
   String selectedValue = '';
   String titleDescription = '';
+  String titlevalue = '';
+
+  @override
+  void initState() {
+    selectedValue = widget.choice ?? '';
+    super.initState();
+  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -63,17 +76,23 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   children: checkbox
                       .map((e) => GestureDetector(
                             onTap: () {
+                              debugPrint(
+                                  "----------Choice select = ${widget.choice}");
                               setState(() {
-                                if (selectedValue != e) {
-                                  selectedValue = e;
-                                } else {
-                                  selectedValue = '';
+                                if (widget.choice == null) {
+                                  if (selectedValue != e) {
+                                    selectedValue = e;
+                                    debugPrint('-------------- Select = $e');
+                                  } else {
+                                    selectedValue = '';
+                                  }
                                 }
                               });
+                              setState(() {});
                             },
                             child: Row(
                               children: [
-                                selectedValue == e
+                                (widget.choice ?? selectedValue) == e
                                     ? SvgPicture.asset(
                                         'assets/icons/round_tick.svg',
                                         height: 20,
@@ -134,7 +153,10 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         v == null || v.isEmpty ? 'Validated Amounts' : null,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     //obscureText: true,
-
+                    onChanged: (value) {
+                      titlevalue = value;
+                      setState(() {});
+                    },
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(
@@ -197,7 +219,14 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         }),
                       ).show(context);
                       setState(() {
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return const HomeScreen();
+                            },
+                          ),
+                        );
                       });
                     } else {
                       _formKey.currentState?.validate();

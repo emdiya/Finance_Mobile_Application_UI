@@ -6,6 +6,7 @@ import 'package:profile_ui/data/profile_info.dart';
 import 'package:profile_ui/data/transaction_data.dart';
 import 'package:profile_ui/models/transaction_model/transaction_model.dart';
 import 'package:profile_ui/screens/recent_transaction.dart';
+import 'package:profile_ui/screens/sent_amount_screen.dart';
 import 'package:profile_ui/screens/transaction_detail.dart';
 import 'package:profile_ui/widget/custom_amount_label.dart';
 import 'package:profile_ui/widget/custom_profile.dart';
@@ -229,6 +230,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               return TransactionDetail(
                                 transaction: transactionDataList[index],
                               );
+                            }),
+                          );
+                        } else if (transactionDataList[index]
+                                .title
+                                ?.toLowerCase() ==
+                            'sent') {
+                          debugPrint("-------- Sent -");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                              return const SentScreenUI();
                             }),
                           );
                         } else {
