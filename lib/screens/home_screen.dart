@@ -239,7 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           debugPrint("-------- Sent -");
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
-                              return const SentScreenUI();
+                              return SentScreenUI(
+                                transaction: transactionDataList[index],
+                              );
                             }),
                           );
                         } else {
